@@ -7,4 +7,12 @@
     <string name="fuel_hybrid">Hibrido</string>
     <string name="fuel_invalid">Não informado</string>
     <string name="logomarca">LOGOMARCA</string>
+
+    <string name="header_text">Carros</string>
+    <string name="no_vehicles">Nenhum carro cadastrado</string>
+    
+    <plurals name="footer_text">
+        <item quantity="one">1 Carro</item>
+        <item quantity="other">%d carros</item>
+    </plurals>
 </resources>
