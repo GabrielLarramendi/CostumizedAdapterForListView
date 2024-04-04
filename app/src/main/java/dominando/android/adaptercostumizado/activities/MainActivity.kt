@@ -28,46 +28,33 @@ class MainActivity : AppCompatActivity() {
         Vehicle("Del Rey", 1988, 3, false, false, false),
         Vehicle("Gol", 2014, 0, true, true, false),
         Vehicle("BYD Dolphin", 2023, 4, false, false, true),
-        Vehicle("BYD Song Plus", 2024, 4, true, true ,true),
-        Vehicle("Onix", 2018, 1, true, true, false),
-        Vehicle("Uno", 2007, 2, true, false, false),
-        Vehicle("Del Rey", 1988, 3, false, false, false),
-        Vehicle("Gol", 2014, 0, true, true, false),
-        Vehicle("BYD Dolphin", 2023, 4, false, false, true),
-        Vehicle("BYD Song Plus", 2024, 4, true, true ,true),
-        Vehicle("Onix", 2018, 1, true, true, false),
-        Vehicle("Uno", 2007, 2, true, false, false),
-        Vehicle("Del Rey", 1988, 3, false, false, false),
-        Vehicle("Gol", 2014, 0, true, true, false),
-        Vehicle("BYD Dolphin", 2023, 4, false, false, true),
-        Vehicle("BYD Song Plus", 2024, 4, true, true ,true),
-        Vehicle("Onix", 2018, 1, true, true, false),
-        Vehicle("Uno", 2007, 2, true, false, false),
-        Vehicle("Del Rey", 1988, 3, false, false, false),
-        Vehicle("Gol", 2014, 0, true, true, false),
-        Vehicle("BYD Dolphin", 2023, 4, false, false, true),
         Vehicle("BYD Song Plus", 2024, 4, true, true ,true)
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val listView = ListView(this)
-        setContentView(listView)
+        setContentView(R.layout.activity_main)
+
+        val listView = findViewById<ListView>(R.id.listView)
+        listView.emptyView = findViewById(R.id.empty)
 
         val adapter = VehicleAdapter(this, vehicles)
         listView.adapter = adapter
 
         initHeaderAndFooter(listView, adapter)
 
-        listView.setOnItemClickListener {parent, _, position, _ ->  //parent = ListView q dispara o evento, view q foi clicada, indice e id
+        listView.setOnItemClickListener {parent, view, position, id ->  //parent = ListView q dispara o evento, view q foi clicada, indice e id
             val vehicle = parent.getItemAtPosition(position) as? Vehicle
             if (vehicle != null) {
                 val p = position -1
                 val (model, year) = vehicle
                 Toast.makeText(this, "$model | $year | $p", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, CarInformationActivity::class.java)
-                intent.putExtra("vehicle", vehicle)
-                startActivity(intent)
+                vehicles.remove(vehicle)
+                adapter.notifyDataSetChanged()
+                txtFooter.text = resources.getQuantityString(R.plurals.footer_text, adapter.count, adapter.count)
+//                val intent = Intent(this, CarInformationActivity::class.java)
+//                intent.putExtra("vehicle", vehicle)
+//                startActivity(intent)
             }
         }
     }
