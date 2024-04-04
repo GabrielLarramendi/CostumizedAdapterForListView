@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">AdapterCostumizado</string>
+    <string name="fuel_gasoline">Gasolina</string>
+    <string name="fuel_ethanol">Etanol</string>
+    <string name="fuel_flex">Flex</string>
+    <string name="fuel_eletric">Eletrico</string>
+    <string name="fuel_hybrid">Hibrido</string>
+    <string name="fuel_invalid">Não informado</string>
+    <string name="logomarca">LOGOMARCA</string>
+</resources>

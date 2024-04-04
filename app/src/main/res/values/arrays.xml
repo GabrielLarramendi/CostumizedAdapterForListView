@@ -1,0 +1,9 @@
+<resources>
+    <array name="array_logos">
+        <item>@drawable/logo_vw</item>
+        <item>@drawable/logo_chevrolet</item>
+        <item>@drawable/logo_fiat</item>
+        <item>@drawable/logo_ford</item>
+        <item>@drawable/logo_byd</item>
+    </array>
+</resources>
