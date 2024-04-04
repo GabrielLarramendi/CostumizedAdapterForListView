@@ -1,5 +1,6 @@
-package dominando.android.adaptercostumizado
+package dominando.android.adaptercostumizado.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ListView
@@ -52,6 +53,10 @@ class MainActivity : AppCompatActivity() {
         listView.setOnItemClickListener {parent, view, position, id ->
             val (model, year) = vehicles[position]
             Toast.makeText(this, "$model | $year | $position", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, CarInformationActivity::class.java)
+            intent.putExtra("model", model)
+            intent.putExtra("year", year.toString())
+            startActivity(intent)
         }
     }
 }
