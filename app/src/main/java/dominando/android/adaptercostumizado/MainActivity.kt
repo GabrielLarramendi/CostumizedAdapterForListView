@@ -3,6 +3,7 @@ package dominando.android.adaptercostumizado
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ListView
+import android.widget.Toast
 import dominando.android.adaptercostumizado.adapters.VehicleAdapter
 import dominando.android.adaptercostumizado.model.Vehicle
 
@@ -47,5 +48,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(listView)
         val adapter = VehicleAdapter(this, vehicles)
         listView.adapter = adapter
+
+        listView.setOnItemClickListener {parent, view, position, id ->
+            val (model, year) = vehicles[position]
+            Toast.makeText(this, "$model | $year | $position", Toast.LENGTH_SHORT).show()
+        }
     }
 }
