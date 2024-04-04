@@ -2,6 +2,7 @@ package dominando.android.adaptercostumizado.adapters
 
 import android.content.Context
 import android.content.res.TypedArray
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.LayoutInflater.*
 import android.view.View
@@ -28,22 +29,39 @@ class VehicleAdapter(
 
     override fun getItemId(position: Int) = position.toLong()
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View? {
         val vehicle = vehicles[position]
 
-        val row = from(ctx).inflate(R.layout.item_vehicle_for_listview, parent, false)
+        val holder: ViewHolder
+        val row: View?
 
-        val logoImg:ImageView = row.findViewById<ImageView>(R.id.img_logo)
-        val textModel:TextView = row.findViewById<TextView>(R.id.textModel)
-        val textYear:TextView = row.findViewById<TextView>(R.id.textYear)
-        val textFuel:TextView = row.findViewById<TextView>(R.id.textFuel)
+        if(convertView == null) {
+            Log.d("VejaPOSICAO", "VIEW NOVA => POSITION: $position")
+            row = from(ctx).inflate(R.layout.item_vehicle_for_listview, parent, false)
+            holder = ViewHolder(row)
+            row.tag = holder
+        }
+        else {
+            Log.d("VejaPOSICAO", "VIEW existente => POSITION: $position")
+            row = convertView
+            holder = convertView.tag as ViewHolder
+        }
 
-        logoImg.setImageDrawable(logos.getDrawable(vehicle.manufacturer))
-        textModel.text = vehicle.model
-        textYear.text = vehicle.year.toString()
-        textFuel.text = ctx.getString(getFuel(vehicle))
+        holder.logoImg.setImageDrawable(logos.getDrawable(vehicle.manufacturer))
+        holder.textModel.text = vehicle.model
+        holder.textYear.text = vehicle.year.toString()
+        holder.textFuel.text = ctx.getString(getFuel(vehicle))
 
         return row
+    }
+
+    companion object {
+        data class ViewHolder(val view: View) {
+            val logoImg:ImageView = view.findViewById<ImageView>(R.id.img_logo)
+            val textModel:TextView = view.findViewById<TextView>(R.id.textModel)
+            val textYear:TextView = view.findViewById<TextView>(R.id.textYear)
+            val textFuel:TextView = view.findViewById<TextView>(R.id.textFuel)
+        }
     }
 
     @StringRes
